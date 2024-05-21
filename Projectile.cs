@@ -1,13 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace game
+﻿namespace game
 {
     internal class Projectile : IComparable<Projectile>
     {
@@ -29,6 +20,13 @@ namespace game
 
         public void SetAttackTimer() { AttackTimer = 100; }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="h1"></param>
+        /// <param name="h2"></param>
+        /// <param name="allProjectiles"></param>
         public void SetValue(int h1, int h2, List<Projectile> allProjectiles)
         {
             var mx = 0;
