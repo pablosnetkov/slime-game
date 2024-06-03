@@ -9,22 +9,97 @@ namespace game
 {
     internal class Player
     {
-        public int MovingTime;
+        //время движения игрока
+        public int MovingTime { get; private set; }
+        //движется ли игрок
         public bool Moving;
-        public int Score = 0;
-        public int Steps = 0;
+        //очки игрока
+        public int Score { get; private set; }
+        //количество шагов игрока, которое нужно пройти для перемещения
+        public int Steps { get; private set; }
+        //координаты x и y игрока
         public int X, Y;
-        public bool Switch = false;
-        public int SwitchFrame = -1;
-        Positions Position = Positions.Center;
+        //поменяны ли местами персонажи
+        public bool Switch;
+        //определяет, на каком кадре находится анимация переключения
+        public int SwitchFrame { get; private set; }
+        //текущая позиция игрока
+        Positions Position;
+
+        // обнуляет количество шагов
+        public void ResetSteps()
+        {
+            Steps = 0;
+        }
+
+        //увеличивает время передвижения на 1
+        public void IncereaseMovingTime()
+        {
+            MovingTime += 1;
+        }
+
+        //увеличивает очки на 1
+        public void IncreaseScore()
+        {
+            Score += 1;
+        }
+
+        //сбрасывает время передвижения до нуля
+        public void ResetMovingTime()
+        {
+            MovingTime = 0;
+        }
+
+        //сбрасывает номер кадра переключения анимации
+        public void ResetSwithFrame()
+        {
+            SwitchFrame = 0;
+        }
+
+        //увеличивает номер кадра анимации
+        public void IncreaseSwitchFrame()
+        {
+            SwitchFrame += 1;
+        }
+
+        //сбрасывает номер кадра анимации до дефолтного (-1)
+        public void DecreaseSwitchFrame()
+        {
+            SwitchFrame = -1;
+        }
+
+        /// <summary>
+        /// инициализирует игрока
+        /// </summary>
+        public Player()
+        {
+            Score = 0;
+            Steps = 0;
+            Switch = false;
+            SwitchFrame = -1;
+            Position = Positions.Center;
+        }
+
+        /// <summary>
+        /// устанавливает стандартные значения переменных для игрока
+        /// </summary>
+        public void SetDefault()
+        {
+            Score = 0;
+            Steps = 0;
+            Switch = false;
+            SwitchFrame = -1;
+            Position = Positions.Center;
+        }
+
+        //значения хитпоинтов игрока
         public int Hp1 { get; set; }
         public int Hp2 { get; set; }
 
-        public void GetDamage(int damage)
-        {
-            Hp1 -= damage;
-            if (Hp1 < 0) Hp1 = 0;
-        }
+        /// <summary>
+        /// осуществляет вычисление количества шагов, необходимых для перемещения в заданную позицию
+        /// </summary>
+        /// <param name="direction"></param>
         public void Move (Directions direction)
         {
             if (direction == Directions.Up && Position == Positions.Bottom)
